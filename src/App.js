@@ -4,7 +4,7 @@ import Contacts from './components/Contacts.js'
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Contacts/>
     </div>
   );

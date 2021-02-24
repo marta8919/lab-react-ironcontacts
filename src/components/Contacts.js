@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ContactsJson from '../contacts.json'
+import ContactDetails from './ContactDetails.js'
 
 export default class Contacts extends Component {
 
@@ -56,7 +57,7 @@ export default class Contacts extends Component {
 
     handleDelete=(contactId)=>{
         let filteredContacts = this.state.contacts.filter((singleContact)=>{
-            return singleContact.id!=contactId
+            return singleContact.id!==contactId
         })
 
         this.setState({
@@ -67,33 +68,34 @@ export default class Contacts extends Component {
     render() {
         return (
             <>
-            <h1>IronContacts</h1>
-            <button onClick={this.handleRandom}>Add Random Contact</button>
-            <button onClick={this.handleSort}>Sort by name</button>
-            <button onClick={this.handlePopularity}>Sort by popularity</button>
+            
+            <h1 className="header">IronContacts</h1>
+            <div className="btn-group">
+                <button onClick={this.handleRandom}>Add Random Contact</button>
+                <button onClick={this.handleSort}>Sort by name</button>
+                <button onClick={this.handlePopularity}>Sort by popularity</button>
+            </div>
 
             <table>
-                <tr>
-                    <th>Picture</th>
-                    <th>Name</th>
-                    <th>Popularity</th>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>Picture</th>
+                        <th>Name</th>
+                        <th>Popularity</th>
+                    </tr>
+                </tbody>
                 
                 
                 {
-                    this.state.contacts.map((singleContact)=>{
-                        return (
-                        <>
-      
-
-                        <tr>
-                            <td><img src={singleContact.pictureUrl}></img></td>
-                            <td>{singleContact.name} </td>
-                            <td>{singleContact.popularity}</td>
-                            <button onClick={()=>{this.handleDelete(singleContact.id)}}>Delete</button>
-                        </tr>
-                        </>
-                        )
+                    this.state.contacts.map((singleContact, index)=>{
+                        return <ContactDetails 
+                        name = {singleContact.name}
+                        key= {index}
+                        onDelete = {this.handleDelete}
+                        image= {singleContact.pictureUrl}
+                        popularity= {singleContact.popularity}
+                        id = {singleContact.id}
+                        />
                     })
                 }
                 
